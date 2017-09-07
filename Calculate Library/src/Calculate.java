@@ -32,6 +32,67 @@ public class Calculate {
 		return (numerator / denominator) + "_" + numerator % denominator + "/" + denominator;
 	}
 	public static String foil(int coeff1, int num1, int coeff2, int num2, String variable) {
-		return (coeff1 * coeff2) + variable + "^2" + " + " + (num1 * coeff2 + num2 * coeff1) + variable + " + " + (num1 * num2);
+		String firstTerm = (coeff1 * coeff2) + variable + "^2";
+		String secondTerm;
+		if(num1 * coeff2 + num2 * coeff1 < 0) {
+			secondTerm = " - " + -(num1 * coeff2 + num2 * coeff1) + variable;
+		} else if(num1 * coeff2 + num2 * coeff1 > 0) {
+			secondTerm = " + " + (num1 * coeff2 + num2 * coeff1) + variable;
+		} else {
+			secondTerm = "";
+		}
+		String thirdTerm;
+		if(num1 * num2 < 0) {
+			thirdTerm = " - " + -(num1 * num2);
+		} else if(num1 * num2 > 0){
+			thirdTerm = " + " + (num1 * num2);
+		} else {
+			thirdTerm = "";
+		}
+		return firstTerm + secondTerm + thirdTerm;
+	}
+	public static boolean isDivisibleBy(int dividend, int divisor) {
+		if(dividend % divisor == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public static double absValue(double input) {
+		if(input < 0) {
+			return -input;
+		} else {
+			return input;
+		}
+	}
+	public static double max(double input1, double input2) {
+		if(input1 > input2) {
+			return input1;
+		} else {
+			return input2;
+		}
+	}
+	public static double max(double input1, double input2, double input3) {
+		if(input1 > input2 && input1 > input3) {
+			return input1;
+		} else if(input2 > input3) {
+			return input2;
+		} else {
+			return input3;
+		}
+	}
+	public static int min(int input1, int input2) {
+		if(input1 < input2) {
+			return input1;
+		} else {
+			return input2;
+		}
+	}
+	public static double round2(double input) {
+		if(input * 1000 % 10 < 5) {
+			return (input * 1000) - (input * 1000 % 10);
+		} else {
+			return ((input * 1000) + (10 - (input * 1000 % 10)))/1000;
+		}
 	}
 }
