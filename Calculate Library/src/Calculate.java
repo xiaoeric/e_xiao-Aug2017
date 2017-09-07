@@ -90,7 +90,7 @@ public class Calculate {
 	}
 	public static double round2(double input) {
 		if(input * 1000 % 10 < 5) {
-			return (input * 1000) - (input * 1000 % 10);
+			return ((input * 1000) - (input * 1000 % 10))/1000;
 		} else {
 			return ((input * 1000) + (10 - (input * 1000 % 10)))/1000;
 		}
