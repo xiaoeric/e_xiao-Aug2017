@@ -103,8 +103,8 @@ public class Calculate {
 		return result;
 	}
 	public static int factorial(int input) {
-		int result = input;
-		for(int i = 1; i < input; i++) {
+		int result = 1;
+		for(int i = 0; i < input; i++) {
 			result *= input - i;
 		}
 		return result;
