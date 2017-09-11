@@ -96,15 +96,15 @@ public class Calculate {
 		}
 	}
 	public static double exponent(double base, int exponent) {
-		double result = base;
-		for(int i = 1; i < exponent; i++) {
+		double result = 1;
+		for(int i = 0; i < exponent; i++) {
 			result *= base;
 		}
 		return result;
 	}
 	public static int factorial(int input) {
-		int result = 1;
-		for(int i = 0; i < input; i++) {
+		int result = input;
+		for(int i = 1; i < input; i++) {
 			result *= input - i;
 		}
 		return result;
