@@ -95,4 +95,26 @@ public class Calculate {
 			return ((input * 1000) + (10 - (input * 1000 % 10)))/1000;
 		}
 	}
+	public static double exponent(double base, int exponent) {
+		double result = base;
+		for(int i = 1; i < exponent; i++) {
+			result *= base;
+		}
+		return result;
+	}
+	public static int factorial(int input) {
+		int result = input;
+		for(int i = 1; i < input; i++) {
+			result *= input - i;
+		}
+		return result;
+	}
+//	public static boolean isPrime(int input) {
+//		for(int i = 2; i < input;) {
+//			if(!isDivisibleBy(input, i)) {
+//				return false;
+//			}
+//		return true;
+//		}
+//	}
 }
