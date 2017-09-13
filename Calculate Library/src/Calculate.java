@@ -52,6 +52,9 @@ public class Calculate {
 		return firstTerm + secondTerm + thirdTerm;
 	}
 	public static boolean isDivisibleBy(int dividend, int divisor) {
+		if(divisor == 0) {
+			throw new ArithmeticException();
+		}
 		if(dividend % divisor == 0) {
 			return true;
 		} else {
@@ -96,6 +99,9 @@ public class Calculate {
 		}
 	}
 	public static double exponent(double base, int exponent) {
+		if(exponent < 0) {
+			throw new ArithmeticException();
+		}
 		double result = 1;
 		for(int i = 0; i < exponent; i++) {
 			result *= base;
@@ -103,6 +109,9 @@ public class Calculate {
 		return result;
 	}
 	public static int factorial(int input) {
+		if(input < 0) {
+			throw new ArithmeticException();
+		}
 		int result = input;
 		for(int i = 1; i < input; i++) {
 			result *= input - i;
@@ -129,12 +138,33 @@ public class Calculate {
 		return i;
 	}
 	public static double sqrt(double input) {
+		if(input < 0) {
+			throw new ArithmeticException();
+		}
 		double approx = input/2;
 		double result = 0;
-		while(approx != (input/approx + approx)/2) {
+		while(result != (input/approx + approx)/2) {
 			result = (input/approx + approx)/2;
 			approx = result;
 		}
-		return result;
+		return round2(result);
+	}
+	public static String quadForm(int a, int b, int c) {
+		if(discriminant(a, b, c) < 0) {
+			return "no real roots";
+		} else {
+			double plusResult = (-b + sqrt(discriminant(a, b, c)))/2;
+			double minusResult = (-b - sqrt(discriminant(a, b, c)))/2;
+			
+			if(plusResult != minusResult) {
+				if(max(plusResult, minusResult) == plusResult) {
+					return round2(minusResult) + " and " + round2(plusResult);
+				} else {
+					return round2(plusResult) + " and " + round2(minusResult);
+				}
+			} else {
+				return round2(plusResult) + "";
+			}
+		}
 	}
 }
