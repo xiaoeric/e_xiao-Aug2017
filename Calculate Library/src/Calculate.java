@@ -109,12 +109,32 @@ public class Calculate {
 		}
 		return result;
 	}
-//	public static boolean isPrime(int input) {
-//		for(int i = 2; i < input;) {
-//			if(!isDivisibleBy(input, i)) {
-//				return false;
-//			}
-//		return true;
-//		}
-//	}
+	public static boolean isPrime(int input) {
+		if(input < 2) {
+			return false;
+		} else if(input == 2) {
+			return true;
+		} else {
+			for(int i = 2; i < input; i++) {
+				if(isDivisibleBy(input, i)) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+	public static int gcf(int num1, int num2) {
+		int i;
+		for(i = num2; !(isDivisibleBy(num2, i) && isDivisibleBy(num1, i)); i--) {}
+		return i;
+	}
+	public static double sqrt(double input) {
+		double approx = input/2;
+		double result = 0;
+		while(approx != (input/approx + approx)/2) {
+			result = (input/approx + approx)/2;
+			approx = result;
+		}
+		return result;
+	}
 }
