@@ -53,7 +53,7 @@ public class Calculate {
 	}
 	public static boolean isDivisibleBy(int dividend, int divisor) {
 		if(divisor == 0) {
-			throw new ArithmeticException();
+			throw new IllegalArgumentException();
 		}
 		if(dividend % divisor == 0) {
 			return true;
@@ -100,7 +100,7 @@ public class Calculate {
 	}
 	public static double exponent(double base, int exponent) {
 		if(exponent < 0) {
-			throw new ArithmeticException();
+			throw new IllegalArgumentException();
 		}
 		double result = 1;
 		for(int i = 0; i < exponent; i++) {
@@ -110,7 +110,7 @@ public class Calculate {
 	}
 	public static int factorial(int input) {
 		if(input < 0) {
-			throw new ArithmeticException();
+			throw new IllegalArgumentException();
 		}
 		int result = input;
 		for(int i = 1; i < input; i++) {
@@ -139,7 +139,7 @@ public class Calculate {
 	}
 	public static double sqrt(double input) {
 		if(input < 0) {
-			throw new ArithmeticException();
+			throw new IllegalArgumentException();
 		}
 		double approx = input/2;
 		double result = 0;
@@ -153,8 +153,8 @@ public class Calculate {
 		if(discriminant(a, b, c) < 0) {
 			return "no real roots";
 		} else {
-			double plusResult = (-b + sqrt(discriminant(a, b, c)))/2;
-			double minusResult = (-b - sqrt(discriminant(a, b, c)))/2;
+			double plusResult = (-b + sqrt(discriminant(a, b, c)))/(2 * a);
+			double minusResult = (-b - sqrt(discriminant(a, b, c)))/(2 * a);
 			
 			if(plusResult != minusResult) {
 				if(max(plusResult, minusResult) == plusResult) {
