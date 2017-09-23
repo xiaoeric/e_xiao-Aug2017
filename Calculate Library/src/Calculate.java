@@ -143,9 +143,11 @@ public class Calculate {
 		}
 		double approx = input/2;
 		double result = 0;
-		while(result != (input/approx + approx)/2) {
-			result = (input/approx + approx)/2;
-			approx = result;
+		if(input != 0) {
+			while(result != (input/approx + approx)/2) {
+				result = (input/approx + approx)/2;
+				approx = result;
+			}
 		}
 		return round2(result);
 	}
