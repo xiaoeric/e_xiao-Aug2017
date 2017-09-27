@@ -1,22 +1,35 @@
 /*Eric Xiao
  * September 22, 2017
  * Responsible for calculations used to describe a quadratic function.
+ * 
+ * Pseudocode:
+ * quadrDescriber outputs String and accepts 3 doubles (a, b, c)
+ * Declare 3 Strings to store three describing sentences
+ * if coefficient of x^2 (a) is positive it points up otherwise points down
+ * vertex X coordinate calculated using -b/(2a)
+ * vertex Y coordinate calculated using vertex X and putting that back into the function
+ * use modified quadForm() to find x intercepts as a String
+ * quadForm uses discriminant(), sqrt(), round2(), and max()
+ * y intercept is always c in standard form because x = 0
+ * return all of the line Strings combined
  */
 public class Quadratic {
-	public static void quadrDescriber(double a, double b, double c) {
+	public static String quadrDescriber(double a, double b, double c) {
+		String line1, line2, line3;
 		if(a > 0) {
-			System.out.println("The parabola opens upward.");
+			line1 = "The parabola opens upward.\n";
 		} else {
-			System.out.println("The parabola opens downward.");
+			line1 = "The parabola opens downward.\n";
 		}
 		
 		double vertexX = -b / (2 * a);
 		double vertexY = a * vertexX * vertexX + b * vertexX + c;
-		System.out.println("The parabola has a vertex at (" + vertexX + ", " + vertexY + ").");
+		line2 = "The parabola has a vertex at (" + vertexX + ", " + vertexY + ").\n";
 		
 		String interceptX = quadForm(a, b, c);
 		double interceptY = c;
-		System.out.println("The parabola has " + interceptX + " and a y-intercept at (0, " + interceptY + ").");
+		line3 = "The parabola has " + interceptX + " and a y-intercept at (0, " + interceptY + ").";
+		return line1 + line2 + line3;
 	}
 	public static double discriminant(double a, double b, double c) {
 		return b * b - 4 * a * c;
