@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Accept user input for b, store as variable
  * Prompt user for c
  * Accept user input for c, store as variable
- * Add a line for nice formatting
+ * Add a line for A E S T H E T I C S
  * Send a, b, and c to quadrDescriber and print the returned String
  */
 public class QuadraticClient {
