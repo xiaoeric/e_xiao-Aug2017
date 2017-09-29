@@ -20,19 +20,33 @@ import java.util.Scanner;
 public class QuadraticClient {
 
 	public static void main(String[] args) {
+		//Creates Scanner object to accept user input.
 		Scanner userInput = new Scanner(System.in);
+		/* Declares and initializes a String to contain
+		 * user input when prompted to continue or not.
+		 */
 		String willContinue = "";
+		/* do-while block executes the statements once
+		 * and repeats while the user does not input "quit".
+		 */
 		do {
+			/* Prompts the user for a, b, and c, and stores
+			 * the user input into variables.
+			 */
 			System.out.println("Given the quadratic equation: ax^2 + bx + c,");
 			System.out.print("Please enter a value for a: ");
-			int a = userInput.nextInt();
+			double a = userInput.nextDouble();
 			System.out.print("Please enter a value for b: ");
-			int b = userInput.nextInt();
+			double b = userInput.nextDouble();
 			System.out.print("Please enter a value for c: ");
-			int c = userInput.nextInt();
+			double c = userInput.nextDouble();
 			System.out.println();
+			//Passes variables to quadrDescriber and prints the String returned
 			System.out.println(Quadratic.quadrDescriber(a, b, c));
 			System.out.println();
+			/* Prompts the user whether or not they want to continue
+			 * and stores the user input as a String.
+			 */
 			System.out.println("Do you want to continue? Type \"quit\" to exit.");
 			willContinue = userInput.next();
 		} while(!willContinue.equals("quit"));
