@@ -1,31 +1,51 @@
-/*Eric Xiao
- * September 22, 2017
+/**
  * Responsible for calculations used to describe a quadratic function.
- * 
- * Pseudocode:
- * quadrDescriber outputs String and accepts 3 doubles (a, b, c)
- * Declare 3 Strings to store three describing sentences
- * if coefficient of x^2 (a) is positive it points up otherwise points down
- * vertex X coordinate calculated using -b/(2a)
- * vertex Y coordinate calculated using vertex X and putting that back into the function
- * use modified quadForm() to find x intercepts as a String
- * quadForm uses discriminant(), sqrt(), round2(), and max()
- * y intercept is always c in standard form because x = 0
- * return all of the line Strings combined
+ * @author Eric Xiao
+ * @date September 22, 2017
+ * @pseudocode
+ * quadrDescriber outputs String and accepts 3 doubles (a, b, c).
+ * Declare 3 Strings to store three describing sentences.
+ * if coefficient of x^2 (a) is positive it points up otherwise points down.
+ * vertex X coordinate calculated using -b/(2a).
+ * vertex Y coordinate calculated using vertex X and putting that back into the function.
+ * use modified quadForm() to find x intercepts as a String.
+ * quadForm uses discriminant(), sqrt(), round2(), and max().
+ * y intercept is always c in standard form because x = 0.
+ * return all of the line Strings combined.
  */
 public class Quadratic {
+	/**
+	 * Assembles a String to describe the orientation, vertex,
+	 * and intercepts of a quadratic function.
+	 * @param a Coefficient of x^2 term
+	 * @param b Coefficient of x term
+	 * @param c Coefficient of x^0 term
+	 * @return a String that describes a quadratic function.
+	 */
 	public static String quadrDescriber(double a, double b, double c) {
 		String line1, line2, line3;
+		/* If x^2 term is positive then the quadratic
+		 * graph opens upward, otherwise opens
+		 * downward. Does not account for a == 0.
+		 */
 		if(a > 0) {
 			line1 = "The parabola opens upward.\n";
 		} else {
 			line1 = "The parabola opens downward.\n";
 		}
-		
+		/* Uses -b/2a to find the x-coordinate of the
+		 * vertex, then uses the quadratic function
+		 * to find the y-coordinate of the vertex.
+		 */
 		double vertexX = -b / (2 * a);
 		double vertexY = a * vertexX * vertexX + b * vertexX + c;
-		line2 = "The parabola has a vertex at (" + vertexX + ", " + vertexY + ").\n";
-		
+		line2 = "The axis of symmetry is x = " + vertexX + ".\n"
+				+ "The parabola has a vertex at (" + vertexX + ", " + vertexY + ").\n";
+		/* Calls quadForm() to calculate the roots of
+		 * the quadratic function to use as x-intercepts
+		 * and finds the y-value of the quadratic function
+		 * at x = 0 to use as the y-intercept.
+		 */
 		String interceptX = quadForm(a, b, c);
 		double interceptY = c;
 		line3 = "The parabola has " + interceptX + " and a y-intercept at (0, " + interceptY + ").";

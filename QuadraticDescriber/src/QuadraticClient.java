@@ -1,24 +1,22 @@
 import java.util.Scanner;
-
-/*Eric Xiao
- * September 22, 2017
+/**
  * Contains a main method and handles interactions with the user.
- * 
- * Pseudocode:
- * Create Scanner object
- * Prompt user for a
- * Accept user input for a, store as variable
- * Prompt user for b
- * Accept user input for b, store as variable
- * Prompt user for c
- * Accept user input for c, store as variable
- * Add a line for A E S T H E T I C S
- * Send a, b, and c to quadrDescriber and print the returned String
- * Prompts the user if they want to continue or not
- * Exits program if "quit", otherwise continue
+ * @author Eric Xiao
+ * @date September 22, 2017
+ * @pseudocode
+ * Create Scanner object.
+ * Prompt user for a.
+ * Accept user input for a, store as variable.
+ * Prompt user for b.
+ * Accept user input for b, store as variable.
+ * Prompt user for c.
+ * Accept user input for c, store as variable.
+ * Add a line for A E S T H E T I C S.
+ * Send a, b, and c to quadrDescriber and print the returned String.
+ * Prompts the user if they want to continue or not.
+ * Exits program if starts with 'q', otherwise continue.
  */
 public class QuadraticClient {
-
 	public static void main(String[] args) {
 		//Creates Scanner object to accept user input.
 		Scanner userInput = new Scanner(System.in);
@@ -27,7 +25,8 @@ public class QuadraticClient {
 		 */
 		String willContinue = "";
 		/* do-while block executes the statements once
-		 * and repeats while the user does not input "quit".
+		 * and repeats while the user does not input a
+		 * String that begins with 'q'.
 		 */
 		do {
 			/* Prompts the user for a, b, and c, and stores
@@ -49,6 +48,6 @@ public class QuadraticClient {
 			 */
 			System.out.println("Do you want to continue? Type \"quit\" to exit.");
 			willContinue = userInput.next();
-		} while(!willContinue.equals("quit"));
+		} while(!(willContinue.charAt(0) == 'q'));
 	}
 }
