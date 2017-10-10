@@ -32,13 +32,17 @@ public class QuadraticClient {
 			/* Prompts the user for a, b, and c, and stores
 			 * the user input into variables.
 			 */
-			System.out.println("Given the quadratic equation: ax^2 + bx + c,");
-			System.out.print("Please enter a value for a: ");
+			System.out.println("Welcome to the Quadratic Describer");
+			System.out.println("Provide values for coefficients a, b, and c");
+			System.out.print("a: ");
 			double a = userInput.nextDouble();
-			System.out.print("Please enter a value for b: ");
+			System.out.print("b: ");
 			double b = userInput.nextDouble();
-			System.out.print("Please enter a value for c: ");
+			System.out.print("c: ");
 			double c = userInput.nextDouble();
+			System.out.println();
+			System.out.println("Description of the graph of:");
+			System.out.println("y = " + a + " x^2 + " + b + " x + " + c);
 			System.out.println();
 			//Passes variables to quadrDescriber and prints the String returned
 			System.out.println(Quadratic.quadrDescriber(a, b, c));
@@ -46,7 +50,7 @@ public class QuadraticClient {
 			/* Prompts the user whether or not they want to continue
 			 * and stores the user input as a String.
 			 */
-			System.out.println("Do you want to continue? Type \"quit\" to exit.");
+			System.out.println("Do you want to keep going? (Type \"quit\" to end)");
 			willContinue = userInput.next();
 		} while(!(willContinue.charAt(0) == 'q'));
 	}

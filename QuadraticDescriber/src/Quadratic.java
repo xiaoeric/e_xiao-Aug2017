@@ -82,6 +82,14 @@ public class Quadratic {
 			return input2;
 		}
 	}
+	/**
+	 * quadForm from Calculate Library has been modified to
+	 * return a String
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @return
+	 */
 	public static String quadForm(double a, double b, double c) {
 		if(discriminant(a, b, c) < 0) {
 			return "no x-intercepts";
