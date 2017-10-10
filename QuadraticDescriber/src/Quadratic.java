@@ -39,8 +39,8 @@ public class Quadratic {
 		 */
 		double vertexX = -b / (2 * a);
 		double vertexY = a * vertexX * vertexX + b * vertexX + c;
-		line2 = "The axis of symmetry is x = " + vertexX + ".\n"
-				+ "The parabola has a vertex at (" + vertexX + ", " + vertexY + ").\n";
+		line2 = "The axis of symmetry is x = " + round2(vertexX) + ".\n"
+				+ "The parabola has a vertex at (" + round2(vertexX) + ", " + round2(vertexY) + ").\n";
 		/* Calls quadForm() to calculate the roots of
 		 * the quadratic function to use as x-intercepts
 		 * and finds the y-value of the quadratic function
