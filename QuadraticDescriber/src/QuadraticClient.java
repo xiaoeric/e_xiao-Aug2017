@@ -41,9 +41,6 @@ public class QuadraticClient {
 			System.out.print("c: ");
 			double c = userInput.nextDouble();
 			System.out.println();
-			System.out.println("Description of the graph of:");
-			System.out.println("y = " + a + " x^2 + " + b + " x + " + c);
-			System.out.println();
 			//Passes variables to quadrDescriber and prints the String returned
 			System.out.println(Quadratic.quadrDescriber(a, b, c));
 			System.out.println();
