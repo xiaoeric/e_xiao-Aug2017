@@ -23,7 +23,9 @@ public class Quadratic {
 	 * @return a String that describes a quadratic function.
 	 */
 	public static String quadrDescriber(double a, double b, double c) {
-		String line1, line2, line3;
+		String equation, line1, line2, line3;
+		equation = "Description of the graph of:\n"
+					+ "y = " + a + "x^2 + " + b + "x + " + c + "\n";
 		/* If x^2 term is positive then the quadratic
 		 * graph opens upward, otherwise opens
 		 * downward. Does not account for a == 0.
@@ -49,7 +51,7 @@ public class Quadratic {
 		String interceptX = quadForm(a, b, c);
 		double interceptY = c;
 		line3 = "The parabola has " + interceptX + " and a y-intercept at (0, " + interceptY + ").";
-		return line1 + line2 + line3;
+		return equation + line1 + line2 + line3;
 	}
 	public static double discriminant(double a, double b, double c) {
 		return b * b - 4 * a * c;
