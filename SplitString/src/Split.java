@@ -12,13 +12,24 @@ public class Split {
 		//play around with String.split! 
 		//What happens if you "I reallyreally likeapples".split("really") ?
 		
+		//returns an array {"I ", " likeapples"}
+		
 		String mySandwich = "applespineapplesbreadlettustomatobaconmayohambreadcheese";
 		System.out.println(splitSandwich(mySandwich));
+		
+		String mySandwichBreadTop = "breadlettustomatobaconmayohambreadcheese";
+		System.out.println(splitSandwich(mySandwichBreadTop));
+		
+		String mySandwichBreadBottom = "pineapplecheeselettucebreadbreadlettustomatobaconmayohambread";
+		System.out.println(splitSandwich(mySandwichBreadBottom));
+		
+		String cheeseSandwich = "breadcheesebread";
+		System.out.println(splitSandwich(cheeseSandwich));
 		
 		String mySandwichWithSpaces = "apples pineapples bread lettus tomato bacon mayo ham bread cheese";
 		System.out.println(splitSpacedSandwich(mySandwichWithSpaces));
 		
-		String exampleSandwich = "bread tomato bacon ham lettus bread";
+		String exampleSandwich = "bread tomato bacon bread ham lettus bread";
 		System.out.println(splitSpacedSandwich(exampleSandwich));
 		
 		String moreBread = "bread bread bread bread bread";
@@ -30,10 +41,29 @@ public class Split {
 	* use String.split to split up the sandwich by the word "bread" and return what's in the middle of the sandwich and ignores what's on the outside
 	* What if it's a fancy sandwich with multiple pieces of bread?
 	*/
+	
+	/**
+	 * @Pseudocode
+	 * split String at "bread"
+	 * if something above first bread
+	 * > then second item is the first filling item
+	 * if something after last bread
+	 * > then second-to-last item is the last filling item
+	 * construct String from first to last filling item
+	 * return String
+	 */
 	public static String splitSandwich(String sandwich) {
 		String[] sansBread = sandwich.split("bread");
 		String contents = "";
-		for(int i = 1; i < sansBread.length - 1; i++) {
+		int i = 0;
+		int end = sansBread.length;
+		if(!sandwich.startsWith("bread")) {
+			i = 1;
+		}
+		if(!sandwich.endsWith("bread")) {
+			end -= 1;
+		}
+		for(; i < end; i++) {
 			contents += sansBread[i];
 		}
 		return contents;
@@ -44,6 +74,15 @@ public class Split {
 	* use String.split to split up the sandwich at the spaces, " ", and return what's in the middle of the sandwich and ignores what's on the outside
 	* Again, what if it's a fancy sandwich with multiple pieces of bread?
 	*/
+	
+	/**
+	 * @Pseudocode
+	 * split String at spaces to get individual items
+	 * search for index of first bread
+	 * search for index of last bread
+	 * construct String from first bread to last bread, leaving out bread
+	 * return String
+	 */
 	public static String splitSpacedSandwich(String sandwich) {
 		String[] items = sandwich.split(" ");
 		int firstBread = 0;
@@ -62,7 +101,9 @@ public class Split {
 		}
 		String contents = "";
 		for(int i = firstBread + 1; i < lastBread; i++) {
-			contents += items[i] + " ";
+			if(!items[i].equals("bread")) {
+				contents += items[i] + " ";
+			}
 		}
 		return contents;
 	}
