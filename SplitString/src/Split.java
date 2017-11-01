@@ -1,3 +1,10 @@
+/*
+ * Eric Xiao
+ * 10/31/2017
+ * APCS 2
+ * Class with methods that can return fillings of sandwiches
+ */
+
 public class Split {
 	public static void main(String[] args) {
 		// Your task Part 0
