@@ -1,11 +1,15 @@
 package fracCalc;
 
+import java.util.Scanner;
+
 public class FracCalc {
 
     public static void main(String[] args) 
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
-
+    	Scanner console = new Scanner(System.in);
+    	String input = console.nextLine();
+    	System.out.println(produceAnswer(input));
     }
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -19,8 +23,12 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
         // TODO: Implement this function to produce the solution to the input
+        String[] terms = input.split(" ");
+        String first = terms[0];
+        String operator = terms[1];
+        String second = terms[2];
         
-        return "";
+        return second;
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
