@@ -4,16 +4,40 @@ import java.util.Scanner;
 
 /**
  * @author Eric Xiao
- * 
+ * @pseudocode
+ * main(){
+ * 	create scanner object
+ * 	do while loop{
+ * 		take user input;
+ * 		if input is "quit" end loop;
+ * 		pass input to produceAnswer() and print;
+ * 	}
+ * }
+ * produceAnswer(){
+ * 	create array of terms by splitting at spaces;
+ * 	first term is String at first index;
+ * 	operator is String at second index;
+ * 	second term is String at third index;
+ * 	create and initialize whole, numerator, and
+ * 	denominator ints for first term with default values;
+ * 	if mixed number
+ * 		parse based on "_" and "/"
+ * 	else if fraction
+ * 		parse based on "/"
+ * 	else no fraction
+ * 		parse as whole number
+ * 	repeat parsing process for second term
+ * 	switch checks operator
+ * }
  */
 public class FracCalc {
 
     public static void main(String[] args) 
     {
         // TODO: Read the input from the user and call produceAnswer with an equation
+    	Scanner console = new Scanner(System.in);
     	do
     	{
-    	Scanner console = new Scanner(System.in);
     	String input = console.nextLine();
     	if (input.equals("quit"))
     		break;
@@ -80,17 +104,7 @@ public class FracCalc {
         switch (operator)
         {
         	case "+":
-        		result += (firstWhole + secondWhole);
-        		if (hasFrac)
-        		{
-        			if(!isImproperFrac(addFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom)))
-        				result += "_" + addFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom);
-        			else
-        			{
-        				result += " + " + toMixedNum(addFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom));
-        				result = produceAnswer(result);
-        			}
-        		}
+        		
         		break;
         	case "-":
         		result += (firstWhole - secondWhole);
@@ -133,6 +147,14 @@ public class FracCalc {
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
+    public static String toImproperFrac(String frac)
+    {
+    	int whole = Integer.parseInt(frac.substring(0, frac.indexOf('_')));
+    	int numer = Integer.parseInt(frac.substring(frac.indexOf('_'), frac.indexOf('/')));
+    	int denom = Integer.parseInt(frac.substring('/'));
+		return (whole * denom + numer) + "/" + denom;
+	}
+    
     public static String addFrac(int firstWhole, int firstNumer, int firstDenom, int secondWhole, int secondNumer, int secondDenom)
     {
     	int numer;
