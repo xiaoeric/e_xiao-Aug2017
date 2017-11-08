@@ -100,43 +100,67 @@ public class FracCalc {
         }
         
         String result = "";
-        boolean hasFrac = firstNumer + secondNumer != 0;
+        int numer;
+        int denom;
         switch (operator)
         {
         	case "+":
+        		if (firstWhole < 0)
+        			numer = (firstWhole * firstDenom - firstNumer) * secondDenom;
+        		else
+        			numer = (firstWhole * firstDenom + firstNumer) * secondDenom;
         		
+        		if (secondWhole < 0)
+        			numer += (secondWhole * secondDenom - secondNumer) * firstDenom;
+        		else
+        			numer += (secondWhole * secondDenom + secondNumer) * firstDenom;
+        		
+        		denom = firstDenom * secondDenom;
+        		
+        		result = numer + "/" + denom;
         		break;
         	case "-":
-        		result += (firstWhole - secondWhole);
-        		if (hasFrac)
-        		{
-        			if(!isImproperFrac(subtractFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom)))
-        				result += "_" + subtractFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom);
-        			else
-        			{
-        				result += " - " + toMixedNum(subtractFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom));
-        				result = produceAnswer(result);
-        			}
-        		}
+        		if (firstWhole < 0)
+        			numer = (firstWhole * firstDenom - firstNumer) * secondDenom;
+        		else
+        			numer = (firstWhole * firstDenom + firstNumer) * secondDenom;
+        		
+        		if (secondWhole < 0)
+        			numer -= (secondWhole * secondDenom - secondNumer) * firstDenom;
+        		else
+        			numer -= (secondWhole * secondDenom + secondNumer) * firstDenom;
+        		
+        		denom = firstDenom * secondDenom;
+        		
+        		result = numer + "/" + denom;
         		break;
         	case "*":
-        		if (!hasFrac)
-        		{
-        			result += (firstWhole * secondWhole);
-        		}
+        		if (firstWhole < 0)
+        			numer = firstWhole * firstDenom - firstNumer;
         		else
-        		{
-        			if(!isImproperFrac(multiplyFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom)))
-        				result += multiplyFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom);
-        			else
-        				result += toMixedNum(multiplyFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom));
-        		}
+        			numer = firstWhole * firstDenom + firstNumer;
+        		
+        		if (secondWhole < 0)
+        			numer *= secondWhole * secondDenom - secondNumer;
+        		else
+        			numer *= secondWhole * secondDenom + secondNumer;
+        		
+        		denom = firstDenom * secondDenom;
+        		
+        		result = numer + "/" + denom;
         		break;
         	case "/":
-        		if(!isImproperFrac(divideFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom)))
-    				result += divideFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom);
-    			else
-    				result += toMixedNum(divideFrac(firstWhole, firstNumer, firstDenom, secondWhole, secondNumer, secondDenom));
+        		if (firstWhole < 0)
+        			numer = (firstWhole * firstDenom - firstNumer) * secondDenom;
+        		else
+        			numer = (firstWhole * firstDenom + firstNumer) * secondDenom;
+        		
+        		if (secondWhole < 0)
+        			denom = (secondWhole * secondDenom - secondNumer) * firstDenom;
+        		else
+        			denom = (secondWhole * secondDenom + secondNumer) * firstDenom;
+
+        		result = numer + "/" + denom;
         		break;
         }
         
@@ -147,84 +171,7 @@ public class FracCalc {
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
-    public static String toImproperFrac(String frac)
-    {
-    	int whole = Integer.parseInt(frac.substring(0, frac.indexOf('_')));
-    	int numer = Integer.parseInt(frac.substring(frac.indexOf('_'), frac.indexOf('/')));
-    	int denom = Integer.parseInt(frac.substring('/'));
-		return (whole * denom + numer) + "/" + denom;
-	}
-    
-    public static String addFrac(int firstWhole, int firstNumer, int firstDenom, int secondWhole, int secondNumer, int secondDenom)
-    {
-    	int numer;
-    	if (firstWhole < 0)
-    		numer = -firstNumer * secondDenom;
-    	else
-    		numer = firstNumer * secondDenom;
-    	if (secondWhole < 0)
-    		numer += -secondNumer * firstDenom;
-    	else
-    		numer += secondNumer * firstDenom;
-    	
-    	int denom = (firstDenom * secondDenom);
-    	
-    	return reduce(Math.abs(numer), denom);
-    }
-    
-    public static String subtractFrac(int firstWhole, int firstNumer, int firstDenom, int secondWhole, int secondNumer, int secondDenom)
-    {
-    	int numer;
-    	if (firstWhole < 0)
-    		numer = -firstNumer * secondDenom;
-    	else
-    		numer = firstNumer * secondDenom;
-    	if (secondWhole < 0)
-    		numer -= -secondNumer * firstDenom;
-    	else
-    		numer -= secondNumer * firstDenom;
-    	
-    	int denom = (firstDenom * secondDenom);
-    	
-    	return reduce(Math.abs(numer), denom);
-    }
-    
-    public static String multiplyFrac(int firstWhole, int firstNumer, int firstDenom, int secondWhole, int secondNumer, int secondDenom)
-    {
-    	int numer;
-    	if (firstWhole < 0)
-    		numer = -firstNumer + firstWhole * firstDenom;
-    	else
-    		numer = firstNumer + firstWhole * firstDenom;
-    	if (secondWhole < 0)
-    		numer *= -secondNumer + secondWhole * secondDenom;
-    	else
-    		numer *= secondNumer + secondWhole * secondDenom;
-    	
-    	int denom = (firstDenom * secondDenom);
-    	
-    	return reduce(numer, denom);
-    }
-    
-    public static String divideFrac(int firstWhole, int firstNumer, int firstDenom, int secondWhole, int secondNumer, int secondDenom)
-    {
-    	int numer;
-    	if (firstWhole < 0)
-    		numer = -firstNumer + firstWhole * firstDenom;
-    	else
-    		numer = firstNumer + firstWhole * firstDenom;
-    	numer *= secondDenom;
-    	
-    	int denom;
-    	if (secondWhole < 0)
-    		denom = -secondNumer + secondWhole * secondDenom;
-    	else
-    		denom = secondNumer + secondWhole * secondDenom;
-    	denom *= firstDenom;
-    	
-    	return reduce(numer, denom);
-    }
-    
+
     public static String reduce(int numer, int denom)
     {
     	if (denom < 0)
@@ -240,16 +187,7 @@ public class FracCalc {
     	else
     		return (numer / denom) + "";
     }
-    
-    public static String toMixedNum(String frac)
-    {
-    	String[] nums = frac.split("/");
-    	int numer = Integer.parseInt(nums[0]);
-    	int denom = Integer.parseInt(nums[1]);
-    	
-    	return (numer / denom) + "_" + numer % denom + "/" + denom;
-	}
-    
+
     public static int gcf(int num1, int num2) {
 		/* i is declared before the for loop because
 		 * it must be returned after the loop.
@@ -281,24 +219,4 @@ public class FracCalc {
 			return false;
 		}
 	}
-
-    public static boolean isImproperFrac(String frac) {
-    	String[] nums = frac.split("/");
-    	if (nums.length > 1)
-    	{
-    		int numer = Integer.parseInt(nums[0]);
-    		int denom = Integer.parseInt(nums[1]);
-    	
-    		if (numer > denom)
-    		{
-    			return true;
-    		}
-    		else
-    		{
-    			return false;
-    		}
-    	}
-    	else
-    		return false;
-    }
 }
