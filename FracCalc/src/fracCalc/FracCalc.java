@@ -164,28 +164,50 @@ public class FracCalc {
         		break;
         }
         
-        if (result.startsWith("0_"))
-        	result = result.substring(2);
-        
+        result = reformat(reduce(result));
         return result;
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
-
-    public static String reduce(int numer, int denom)
+    
+    public static String reformat(String input)
     {
+    	if (input.startsWith("0_"))
+        	input = input.substring(2);
+    	
+    	if (input.indexOf("0/") > 0)
+    		input = input.substring(0, input.indexOf("_0/"));
+    	else if (input.indexOf("0/") == 0)
+    		input = "0";
+    	
+    	if(input.endsWith("/1"))
+    		input = input.substring(0, input.indexOf("/1"));
+    	
+    	return input;
+    }
+
+    public static String reduce(String frac)
+    {
+    	int numer = Integer.parseInt(frac.substring(0, frac.indexOf('/')));
+    	int denom = Integer.parseInt(frac.substring(frac.indexOf('/') + 1));
+    	
     	if (denom < 0)
     	{
     		numer *= -1;
     		denom *= -1;
     	}
-    	if (numer % denom != 0)
-    	{
-    		int gcf = gcf(numer, denom);
-    		return (numer / gcf) + "/" + (denom / gcf);
-    	}
-    	else
-    		return (numer / denom) + "";
+    	
+    	int whole = numer / denom;
+    	numer %= denom;
+    	
+    	int gcf = gcf(numer, denom);
+    	numer /= gcf;
+    	denom /= gcf;
+    	
+    	if (whole < 0 && numer < 0)
+    		numer *= -1;
+    	
+    	return whole + "_" + numer + "/" + denom;
     }
 
     public static int gcf(int num1, int num2) {
