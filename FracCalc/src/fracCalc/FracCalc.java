@@ -21,14 +21,60 @@ import java.util.Scanner;
  * 	create and initialize whole, numerator, and
  * 	denominator ints for first term with default values;
  * 	if mixed number
- * 		parse based on "_" and "/"
+ * 		parse based on "_" and "/";
  * 	else if fraction
- * 		parse based on "/"
+ * 		parse based on "/";
  * 	else no fraction
- * 		parse as whole number
- * 	repeat parsing process for second term
- * 	switch checks operator
+ * 		parse as whole number;
+ * 	repeat parsing process for second term;
+ * 	create return String and result numerator
+ * 	and denominator ints;
+ * 	switch checks operator String{
+ * 		addition
+ * 			convert both to improper frac and 
+ * 			multiply for common denominator;
+ * 			add numerators;
+ * 		subtraction
+ * 			convert both to improper frac and 
+ * 			multiply for common denominator;
+ * 			subtract numerators;
+ * 		multiplication
+ * 			convert both to improper frac; 
+ * 			multiply numerators together;
+ * 			multiply denominators together;
+ * 		division
+ * 			convert both to improper frac; 
+ * 			multiply first numerator and second denominator;
+ * 			multiply second numerator and first denominator;
+ * 	}
+ * 	pass result String to reduce() and reassign to result;
+ * 	pass result String to reformat() and reassign to result;
+ * 	return result String;
  * }
+ * reduce(){
+ * 	parse String around "/" into numerator and denominator ints;
+ * 	if denominator is negative
+ * 		make denominator positive and invert numerator;
+ * 	int whole is numerator / denominator;
+ * 	numerator is reassigned as remainder of numerator / denominator;
+ * 	find gcf by passing numerator and denominator to gcf();
+ * 	divide both numerator and denominator by gcf and reassign;
+ * 	if both whole and numerator are negative
+ * 		invert numerator;
+ * 	return whole, numerator, and denominator as mixed number;
+ * }
+ * reformat(){
+ * 	if input starts with "0_"
+ * 		remove "0_";
+ * 	if input contains but does not start with "0/"
+ * 		remove "_0/" and everything following;
+ * 	else if starts with "0/"
+ * 		reassign input to "0";
+ * 	if input ends with "/1"
+ * 		remove "/1";
+ * 	return input String;
+ * }
+ * gcf and isDivisibleBy copied from Calculate Library
  */
 public class FracCalc {
 
@@ -169,23 +215,6 @@ public class FracCalc {
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
-    
-    public static String reformat(String input)
-    {
-    	if (input.startsWith("0_"))
-        	input = input.substring(2);
-    	
-    	if (input.indexOf("0/") > 0)
-    		input = input.substring(0, input.indexOf("_0/"));
-    	else if (input.indexOf("0/") == 0)
-    		input = "0";
-    	
-    	if(input.endsWith("/1"))
-    		input = input.substring(0, input.indexOf("/1"));
-    	
-    	return input;
-    }
-
     public static String reduce(String frac)
     {
     	int numer = Integer.parseInt(frac.substring(0, frac.indexOf('/')));
@@ -208,6 +237,22 @@ public class FracCalc {
     		numer *= -1;
     	
     	return whole + "_" + numer + "/" + denom;
+    }
+    
+    public static String reformat(String input)
+    {
+    	if (input.startsWith("0_"))
+        	input = input.substring(2);
+    	
+    	if (input.indexOf("0/") > 0)
+    		input = input.substring(0, input.indexOf("_0/"));
+    	else if (input.indexOf("0/") == 0)
+    		input = "0";
+    	
+    	if(input.endsWith("/1"))
+    		input = input.substring(0, input.indexOf("/1"));
+    	
+    	return input;
     }
 
     public static int gcf(int num1, int num2) {
