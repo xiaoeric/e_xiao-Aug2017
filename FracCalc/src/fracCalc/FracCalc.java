@@ -221,8 +221,12 @@ public class FracCalc {
         
         result = reformat(reduce(result));
         
-        if (multiOp)
-        	result = produceAnswer(result + " " + terms[3] + " " + terms[4]);
+        if (multiOp) {
+        	String temp = result;
+        	for(int i = 4; i < terms.length; i += 2)
+        		temp += " " + terms[i - 1] + " " + terms[i];
+        	result = produceAnswer(temp);
+        }
         
         return result;
     }
