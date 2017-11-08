@@ -107,6 +107,10 @@ public class FracCalc {
         String operator = terms[1];
         String second = terms[2];
         
+        boolean multiOp = false;
+        if (terms.length > 3)
+        	multiOp = true;
+        
         int firstWhole = 0;
         int firstNumer = 0;
         int firstDenom = 1;
@@ -144,6 +148,9 @@ public class FracCalc {
         {
         	secondWhole = Integer.parseInt(second);
         }
+        
+        if (firstDenom == 0 || secondDenom == 0)
+        	return "Umm... why are you trying to divide by zero...?";
         
         String result = "";
         int numer;
@@ -208,9 +215,15 @@ public class FracCalc {
 
         		result = numer + "/" + denom;
         		break;
+        	default:
+        		return "Hey! That's an invalid format! Did you even pass elementary school math?!";
         }
         
         result = reformat(reduce(result));
+        
+        if (multiOp)
+        	result = produceAnswer(result + " " + terms[3] + " " + terms[4]);
+        
         return result;
     }
 
