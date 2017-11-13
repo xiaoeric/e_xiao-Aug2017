@@ -103,161 +103,152 @@ public class FracCalc {
     { 
         // TODO: Implement this function to produce the solution to the input
         String[] terms = input.split(" ");
-        String first = terms[0];
+        String firstString = terms[0];
         String operator = terms[1];
-        String second = terms[2];
+        String secondString = terms[2];
         
         boolean multiOp = false;
         if (terms.length > 3)
         	multiOp = true;
         
-        int firstWhole = 0;
-        int firstNumer = 0;
-        int firstDenom = 1;
-        if (first.indexOf('_') >= 0)
-        {
-        	firstWhole = Integer.parseInt(first.substring(0, first.indexOf('_')));
-        	firstNumer = Integer.parseInt(first.substring(first.indexOf('_') + 1, first.indexOf('/')));
-        	firstDenom = Integer.parseInt(first.substring(first.indexOf('/') + 1));
-        }
-        else if (first.indexOf('/') >= 0)
-        {
-        	firstNumer = Integer.parseInt(first.substring(0, first.indexOf('/')));
-        	firstDenom = Integer.parseInt(first.substring(first.indexOf('/') + 1));
-        }
-        else
-        {
-        	firstWhole = Integer.parseInt(first);
-        }
+        int[] firstTerm = parse(firstString);
+        int[] secondTerm = parse(secondString);
         
-        int secondWhole = 0;
-        int secondNumer = 0;
-        int secondDenom = 1;
-        if (second.indexOf('_') >= 0)
-        {
-        	secondWhole = Integer.parseInt(second.substring(0, second.indexOf('_')));
-        	secondNumer = Integer.parseInt(second.substring(second.indexOf('_') + 1, second.indexOf('/')));
-        	secondDenom = Integer.parseInt(second.substring(second.indexOf('/') + 1));
-        }
-        else if (second.indexOf('/') >= 0)
-        {
-        	secondNumer = Integer.parseInt(second.substring(0, second.indexOf('/')));
-        	secondDenom = Integer.parseInt(second.substring(second.indexOf('/') + 1));
-        }
-        else
-        {
-        	secondWhole = Integer.parseInt(second);
-        }
-        
-        if (firstDenom == 0 || secondDenom == 0)
+        if (firstTerm[2] == 0 || secondTerm[2] == 0)
         	return "Umm... why are you trying to divide by zero...?";
         
-        String result = "";
+        int[] result = {0, 0, 1};
         int numer;
         int denom;
         switch (operator)
         {
         	case "+":
-        		if (firstWhole < 0)
-        			numer = (firstWhole * firstDenom - firstNumer) * secondDenom;
+        		if (firstTerm[0] < 0)
+        			numer = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
         		else
-        			numer = (firstWhole * firstDenom + firstNumer) * secondDenom;
+        			numer = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
         		
-        		if (secondWhole < 0)
-        			numer += (secondWhole * secondDenom - secondNumer) * firstDenom;
+        		if (secondTerm[0] < 0)
+        			numer += (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
         		else
-        			numer += (secondWhole * secondDenom + secondNumer) * firstDenom;
+        			numer += (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
         		
-        		denom = firstDenom * secondDenom;
+        		denom = firstTerm[2] * secondTerm[2];
         		
-        		result = numer + "/" + denom;
+        		result[1] = numer;
+        		result[2] = denom;
         		break;
         	case "-":
-        		if (firstWhole < 0)
-        			numer = (firstWhole * firstDenom - firstNumer) * secondDenom;
+        		if (firstTerm[0] < 0)
+        			numer = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
         		else
-        			numer = (firstWhole * firstDenom + firstNumer) * secondDenom;
+        			numer = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
         		
-        		if (secondWhole < 0)
-        			numer -= (secondWhole * secondDenom - secondNumer) * firstDenom;
+        		if (secondTerm[0] < 0)
+        			numer -= (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
         		else
-        			numer -= (secondWhole * secondDenom + secondNumer) * firstDenom;
+        			numer -= (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
         		
-        		denom = firstDenom * secondDenom;
+        		denom = firstTerm[2] * secondTerm[2];
         		
-        		result = numer + "/" + denom;
+        		result[1] = numer;
+        		result[2] = denom;
         		break;
         	case "*":
-        		if (firstWhole < 0)
-        			numer = firstWhole * firstDenom - firstNumer;
+        		if (firstTerm[0] < 0)
+        			numer = firstTerm[0] * firstTerm[2] - firstTerm[1];
         		else
-        			numer = firstWhole * firstDenom + firstNumer;
+        			numer = firstTerm[0] * firstTerm[2] + firstTerm[1];
         		
-        		if (secondWhole < 0)
-        			numer *= secondWhole * secondDenom - secondNumer;
+        		if (secondTerm[0] < 0)
+        			numer *= secondTerm[0] * secondTerm[2] - secondTerm[1];
         		else
-        			numer *= secondWhole * secondDenom + secondNumer;
+        			numer *= secondTerm[0] * secondTerm[2] + secondTerm[1];
         		
-        		denom = firstDenom * secondDenom;
+        		denom = firstTerm[2] * secondTerm[2];
         		
-        		result = numer + "/" + denom;
+        		result[1] = numer;
+        		result[2] = denom;
         		break;
         	case "/":
-        		if (firstWhole < 0)
-        			numer = (firstWhole * firstDenom - firstNumer) * secondDenom;
+        		if (firstTerm[0] < 0)
+        			numer = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
         		else
-        			numer = (firstWhole * firstDenom + firstNumer) * secondDenom;
+        			numer = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
         		
-        		if (secondWhole < 0)
-        			denom = (secondWhole * secondDenom - secondNumer) * firstDenom;
+        		if (secondTerm[0] < 0)
+        			denom = (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
         		else
-        			denom = (secondWhole * secondDenom + secondNumer) * firstDenom;
+        			denom = (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
 
-        		result = numer + "/" + denom;
+        		result[1] = numer;
+        		result[2] = denom;
         		break;
         	default:
         		return "Hey! That's an invalid format! Did you even pass elementary school math?!";
         }
         
-        result = reformat(reduce(result));
+        reduce(result);
+        String resultString = reformat(result);
         
         if (multiOp) {
-        	String temp = result;
+        	String temp = resultString;
         	for(int i = 4; i < terms.length; i += 2)
         		temp += " " + terms[i - 1] + " " + terms[i];
-        	result = produceAnswer(temp);
+        	resultString = produceAnswer(temp);
         }
         
-        return result;
+        return resultString;
     }
 
     // TODO: Fill in the space below with any helper methods that you think you will need
-    public static String reduce(String frac)
+    public static int[] parse(String input)
     {
-    	int numer = Integer.parseInt(frac.substring(0, frac.indexOf('/')));
-    	int denom = Integer.parseInt(frac.substring(frac.indexOf('/') + 1));
-    	
-    	if (denom < 0)
-    	{
-    		numer *= -1;
-    		denom *= -1;
-    	}
-    	
-    	int whole = numer / denom;
-    	numer %= denom;
-    	
-    	int gcf = gcf(numer, denom);
-    	numer /= gcf;
-    	denom /= gcf;
-    	
-    	if (whole < 0 && numer < 0)
-    		numer *= -1;
-    	
-    	return whole + "_" + numer + "/" + denom;
+    	int whole = 0;
+        int numer = 0;
+        int denom = 1;
+        if (input.indexOf('_') >= 0)
+        {
+        	whole = Integer.parseInt(input.substring(0, input.indexOf('_')));
+        	numer = Integer.parseInt(input.substring(input.indexOf('_') + 1, input.indexOf('/')));
+        	denom = Integer.parseInt(input.substring(input.indexOf('/') + 1));
+        }
+        else if (input.indexOf('/') >= 0)
+        {
+        	numer = Integer.parseInt(input.substring(0, input.indexOf('/')));
+        	denom = Integer.parseInt(input.substring(input.indexOf('/') + 1));
+        }
+        else
+        {
+        	whole = Integer.parseInt(input);
+        }
+        int[] arr = {whole, numer, denom};
+        return arr;
     }
     
-    public static String reformat(String input)
+    public static void reduce(int[] arr)
     {
+    	if (arr[2] < 0)
+    	{
+    		arr[1] *= -1;
+    		arr[2] *= -1;
+    	}
+    	
+    	arr[0] = arr[1] / arr[2];
+    	arr[1] %= arr[2];
+    	
+    	int gcf = gcf(arr[1], arr[2]);
+    	arr[1] /= gcf;
+    	arr[2] /= gcf;
+    	
+    	if (arr[0] < 0 && arr[1] < 0)
+    		arr[1] *= -1;
+    }
+    
+    public static String reformat(int[] arr)
+    {
+    	String input = arr[0] + "_" + arr[1] + "/" + arr[2];
+
     	if (input.startsWith("0_"))
         	input = input.substring(2);
     	
