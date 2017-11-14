@@ -252,7 +252,7 @@ public class FracCalc {
     	if (input.startsWith("0_"))
         	input = input.substring(2);
     	
-    	if (input.indexOf("0/") > 0)
+    	if (input.indexOf("_0/") > 0)
     		input = input.substring(0, input.indexOf("_0/"));
     	else if (input.indexOf("0/") == 0)
     		input = "0";
