@@ -257,9 +257,6 @@ public class FracCalc {
     	else if (input.indexOf("0/") == 0)
     		input = "0";
     	
-    	if(input.endsWith("/1"))
-    		input = input.substring(0, input.indexOf("/1"));
-    	
     	return input;
     }
 
