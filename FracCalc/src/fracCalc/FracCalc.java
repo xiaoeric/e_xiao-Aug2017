@@ -7,9 +7,9 @@ import java.util.Scanner;
  * @pseudocode
  * main(){
  * 	create scanner object
- * 	do while loop{
+ * 	do while true loop{
  * 		take user input;
- * 		if input is "quit" end loop;
+ * 		if input is "quit" break loop;
  * 		pass input to produceAnswer() and print;
  * 	}
  * }
@@ -18,15 +18,7 @@ import java.util.Scanner;
  * 	first term is String at first index;
  * 	operator is String at second index;
  * 	second term is String at third index;
- * 	create and initialize whole, numerator, and
- * 	denominator ints for first term with default values;
- * 	if mixed number
- * 		parse based on "_" and "/";
- * 	else if fraction
- * 		parse based on "/";
- * 	else no fraction
- * 		parse as whole number;
- * 	repeat parsing process for second term;
+ * 	pass first and second terms to parse();
  * 	create return String and result numerator
  * 	and denominator ints;
  * 	switch checks operator String{
@@ -51,6 +43,19 @@ import java.util.Scanner;
  * 	pass result String to reformat() and reassign to result;
  * 	return result String;
  * }
+ * parse(){
+ * 	create and initialize ints for whole, numerator, and
+ * 	denominator;
+ * 	if input contains "_"
+ * 		input is mixed, parse around "_" and "/";
+ * 	else if input contains "/" but not "_"
+ * 		input is a fraction, parse around "/";
+ * 	else
+ * 		parse input as whole number;
+ * 	create return int[] and initialize with whole, numerator, and
+ * 	denominator ints;
+ * 	return int[];
+ * }
  * reduce(){
  * 	parse String around "/" into numerator and denominator ints;
  * 	if denominator is negative
@@ -66,7 +71,7 @@ import java.util.Scanner;
  * reformat(){
  * 	if input starts with "0_"
  * 		remove "0_";
- * 	if input contains but does not start with "0/"
+ * 	if input contains but does not start with "_0/"
  * 		remove "_0/" and everything following;
  * 	else if starts with "0/"
  * 		reassign input to "0";
@@ -256,6 +261,9 @@ public class FracCalc {
     		input = input.substring(0, input.indexOf("_0/"));
     	else if (input.indexOf("0/") == 0)
     		input = "0";
+    	
+    	if (input.endsWith("/1"))
+    		input = input.substring(0, input.length() - 2);
     	
     	return input;
     }
