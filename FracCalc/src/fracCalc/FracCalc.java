@@ -227,9 +227,7 @@ public class FracCalc {
         	denom = Integer.parseInt(input.substring(input.indexOf('/') + 1));
         }
         else
-        {
         	whole = Integer.parseInt(input);
-        }
         int[] arr = {whole, numer, denom};
         return arr;
     }
