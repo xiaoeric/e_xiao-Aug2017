@@ -91,6 +91,7 @@ public class FracCalc {
     	Scanner console = new Scanner(System.in);
     	do
     	{
+    	System.out.println("Please enter the expression to be resolved:");
     	String input = console.nextLine();
     	if (input.equals("quit"))
     		break;
