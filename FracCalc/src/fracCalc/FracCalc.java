@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 /**
  * @author Eric Xiao
+ * @date 11/15/2017
+ * @class APCS 2
  * @pseudocode
  * main(){
  * 	create scanner object
