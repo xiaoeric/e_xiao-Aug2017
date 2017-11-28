@@ -6,6 +6,9 @@ import java.util.Scanner;
  * @author Eric Xiao
  * @date 11/15/2017
  * @class APCS 2
+ * @description
+ * A calculator that supports mathematical operations
+ * between fractions and mixed numbers
  * @pseudocode
  * main(){
  * 	create scanner object
@@ -85,120 +88,139 @@ import java.util.Scanner;
  */
 public class FracCalc {
 
+	/**
+	 * Runs the FracCalc program and handles user input
+	 */
     public static void main(String[] args) 
     {
-        // TODO: Read the input from the user and call produceAnswer with an equation
     	Scanner console = new Scanner(System.in);
     	do
     	{
+    	//Prompts user for expression
     	System.out.println("Please enter the expression to be resolved:");
     	String input = console.nextLine();
+    	//Breaks loop when user types "quit"
     	if (input.equals("quit"))
     		break;
+    	//Passes input to produceAnswer() and prints to console
     	System.out.println(produceAnswer(input));
     	} while(true);
     }
     
-    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
-    // This function takes a String 'input' and produces the result
-    //
-    // input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
-    //      e.g. input ==> "1/2 + 3/4"
-    //        
-    // The function should return the result of the fraction after it has been calculated
-    //      e.g. return ==> "1_1/4"
+    /**
+     * Performs calculations to produce an answer
+     * @param input
+     * The mathematical expression to be resolved
+     * @return
+     * The result of the mathematical expression
+     */
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input
+    	//Splits user input into array
         String[] terms = input.split(" ");
         String firstString = terms[0];
         String operator = terms[1];
         String secondString = terms[2];
         
+        /*
+         * Activates code to handle multiple operations
+         * later on if multiple operations exist
+         */
         boolean multiOp = false;
         if (terms.length > 3)
         	multiOp = true;
         
+        //Receives output from parse()
         int[] firstTerm = parse(firstString);
         int[] secondTerm = parse(secondString);
         
+        /*
+         * Returns an error if the input contains a fraction
+         * with a denominator of 0
+         */
         if (firstTerm[2] == 0 || secondTerm[2] == 0)
         	return "Umm... why are you trying to divide by zero...?";
         
+        //Initialize array to contain result of calculation
         int[] result = {0, 0, 1};
-        int numer;
-        int denom;
+        
+        /*
+         * Switch statement checks operator and performs
+         * corresponding calculations
+         */
         switch (operator)
         {
         	case "+":
+        		/*
+        		 * Treats numerator as a negative number if
+        		 * whole number is negative
+        		 */
         		if (firstTerm[0] < 0)
-        			numer = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
+        			result[1] = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
         		else
-        			numer = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
+        			result[1] = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
         		
         		if (secondTerm[0] < 0)
-        			numer += (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
+        			result[1] += (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
         		else
-        			numer += (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
+        			result[1] += (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
         		
-        		denom = firstTerm[2] * secondTerm[2];
-        		
-        		result[1] = numer;
-        		result[2] = denom;
+        		result[2] = firstTerm[2] * secondTerm[2];
         		break;
         	case "-":
         		if (firstTerm[0] < 0)
-        			numer = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
+        			result[1] = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
         		else
-        			numer = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
+        			result[1] = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
         		
         		if (secondTerm[0] < 0)
-        			numer -= (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
+        			result[1] -= (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
         		else
-        			numer -= (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
+        			result[1] -= (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
         		
-        		denom = firstTerm[2] * secondTerm[2];
-        		
-        		result[1] = numer;
-        		result[2] = denom;
+        		result[2] = firstTerm[2] * secondTerm[2];
         		break;
         	case "*":
         		if (firstTerm[0] < 0)
-        			numer = firstTerm[0] * firstTerm[2] - firstTerm[1];
+        			result[1] = firstTerm[0] * firstTerm[2] - firstTerm[1];
         		else
-        			numer = firstTerm[0] * firstTerm[2] + firstTerm[1];
+        			result[1] = firstTerm[0] * firstTerm[2] + firstTerm[1];
         		
         		if (secondTerm[0] < 0)
-        			numer *= secondTerm[0] * secondTerm[2] - secondTerm[1];
+        			result[1] *= secondTerm[0] * secondTerm[2] - secondTerm[1];
         		else
-        			numer *= secondTerm[0] * secondTerm[2] + secondTerm[1];
+        			result[1] *= secondTerm[0] * secondTerm[2] + secondTerm[1];
         		
-        		denom = firstTerm[2] * secondTerm[2];
-        		
-        		result[1] = numer;
-        		result[2] = denom;
+        		result[2] = firstTerm[2] * secondTerm[2];
         		break;
         	case "/":
         		if (firstTerm[0] < 0)
-        			numer = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
+        			result[1] = (firstTerm[0] * firstTerm[2] - firstTerm[1]) * secondTerm[2];
         		else
-        			numer = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
+        			result[1] = (firstTerm[0] * firstTerm[2] + firstTerm[1]) * secondTerm[2];
         		
         		if (secondTerm[0] < 0)
-        			denom = (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
+        			result[2] = (secondTerm[0] * secondTerm[2] - secondTerm[1]) * firstTerm[2];
         		else
-        			denom = (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
-
-        		result[1] = numer;
-        		result[2] = denom;
+        			result[2] = (secondTerm[0] * secondTerm[2] + secondTerm[1]) * firstTerm[2];
         		break;
+        		
+        	//Returns an error if user inputs an invalid operator
         	default:
         		return "Hey! That's an invalid format! Did you even pass elementary school math?!";
         }
         
+        //Reduces the result of the calculations
         reduce(result);
+        
+        //Reformats the array into a String
         String resultString = reformat(result);
         
+        /*
+         * Appends the rest of the user input
+         * and inserts back into produceAnswer()
+         * if multiOp check passes
+         */
         if (multiOp) {
         	String temp = resultString;
         	for(int i = 4; i < terms.length; i += 2)
@@ -206,47 +228,91 @@ public class FracCalc {
         	resultString = produceAnswer(temp);
         }
         
+        //Returns the final answer
         return resultString;
     }
 
-    // TODO: Fill in the space below with any helper methods that you think you will need
+    /**
+     * Interprets user input into an array of ints
+     * @param input
+     * The mathematical term to be interpreted
+     * @return
+     * An array of integers representing the operand
+     */
     public static int[] parse(String input)
     {
+    	//Initializes with default values
     	int whole = 0;
         int numer = 0;
         int denom = 1;
+        
+        
+        //Parses as a mixed number if "_" exists
         if (input.indexOf('_') >= 0)
         {
         	whole = Integer.parseInt(input.substring(0, input.indexOf('_')));
         	numer = Integer.parseInt(input.substring(input.indexOf('_') + 1, input.indexOf('/')));
         	denom = Integer.parseInt(input.substring(input.indexOf('/') + 1));
         }
+        /*
+         * Parses as a fraction if "/" exists
+         * and does not contain "_"
+         */
         else if (input.indexOf('/') >= 0)
         {
         	numer = Integer.parseInt(input.substring(0, input.indexOf('/')));
         	denom = Integer.parseInt(input.substring(input.indexOf('/') + 1));
         }
+        /*
+         * Parses as a whole number if neither
+         * "_" nor "/" exist
+         */
         else
         	whole = Integer.parseInt(input);
+        
+        //Initializes return array with the parse results
         int[] arr = {whole, numer, denom};
+        
+        //Returns array
         return arr;
     }
     
+    /**
+     * Manipulates an array to simplify it
+     * @param arr
+     * The array of ints representing a number
+     * to be simplified
+     */
     public static void reduce(int[] arr)
     {
+    	/*
+    	 * Transfers the negative sign from the
+    	 * denominator to the numerator
+    	 */
     	if (arr[2] < 0)
     	{
     		arr[1] *= -1;
     		arr[2] *= -1;
     	}
     	
+    	/*
+    	 * Reduces the improper fraction and
+    	 * adds to whole number
+    	 */
     	arr[0] = arr[1] / arr[2];
     	arr[1] %= arr[2];
     	
+    	/*
+    	 * Finds the greatest common factor
+    	 * to reduce the fraction
+    	 */
     	int gcf = gcf(arr[1], arr[2]);
     	arr[1] /= gcf;
     	arr[2] /= gcf;
     	
+    	/*
+    	 * Removes negative sign from numerator
+    	 */
     	if (arr[0] < 0 && arr[1] < 0)
     		arr[1] *= -1;
     }
