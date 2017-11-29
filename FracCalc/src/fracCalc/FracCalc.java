@@ -317,21 +317,41 @@ public class FracCalc {
     		arr[1] *= -1;
     }
     
+    /**
+     * Builds a String and trims it for
+     * formatting conventions
+     * @param arr
+     * The array representing a number
+     * @return
+     * A String representing a number
+     */
     public static String reformat(int[] arr)
     {
+    	/*
+    	 * Constructs a String using whole number,
+    	 * numerator, and denominator
+    	 */
     	String input = arr[0] + "_" + arr[1] + "/" + arr[2];
 
+    	//Delete "0_" if it exists
     	if (input.startsWith("0_"))
         	input = input.substring(2);
     	
+    	//Trim off fraction part if numerator is 0
     	if (input.indexOf("_0/") > 0)
     		input = input.substring(0, input.indexOf("_0/"));
+    	/*
+    	 * Entire String should be 0 if number is a fraction
+    	 * and numerator is 0
+    	 */
     	else if (input.indexOf("0/") == 0)
     		input = "0";
     	
+    	//Trim off /1 if still remaining
     	if (input.endsWith("/1"))
     		input = input.substring(0, input.length() - 2);
     	
+    	//Return reformatted String
     	return input;
     }
 
