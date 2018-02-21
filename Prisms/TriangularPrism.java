@@ -9,7 +9,11 @@
  * It uses half the perimeter.  (Why might you want to use 0.5 instead of 1/2?)
  */
 
-
+/**
+ * @author Eric Xiao
+ * @date 2/21/2018
+ * @period 2
+ */
 public class TriangularPrism extends Prism
 {
 	private double sideA;

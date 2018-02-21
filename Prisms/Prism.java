@@ -9,8 +9,12 @@
  *   and then adding on the areas of the 2 bases.
  */
 
-
-public abstract class Prism extends ThreeDShape
+/**
+ * @author Eric Xiao
+ * @date 2/21/2018
+ * @period 2
+ */
+public abstract class Prism
 {
 	private double height;
 	

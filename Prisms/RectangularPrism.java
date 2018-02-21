@@ -4,6 +4,11 @@
  * Provide a constructor and the methods required by its abstract superclass.  
  */
 
+/**
+ * @author Eric Xiao
+ * @date 2/21/2018
+ * @period 2
+ */
 public class RectangularPrism extends Prism
 {
 	private double length;

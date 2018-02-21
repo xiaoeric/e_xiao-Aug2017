@@ -1,3 +1,8 @@
+/**
+ * @author Eric Xiao
+ * @date 2/21/2018
+ * @period 2
+ */
 public abstract class ThreeDShape {
 	private double volume;
 	private double surfaceArea;

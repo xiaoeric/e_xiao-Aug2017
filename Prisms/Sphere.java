@@ -1,4 +1,8 @@
-
+/**
+ * @author Eric Xiao
+ * @date 2/21/2018
+ * @period 2
+ */
 public class Sphere extends ThreeDShape {
 	private double radius;
 	

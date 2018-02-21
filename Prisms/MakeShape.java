@@ -1,4 +1,8 @@
-
+/**
+ * @author Eric Xiao
+ * @date 2/21/2018
+ * @period 2
+ */
 public class MakeShape {
 
 	public static void main(String[] args) 
