@@ -10,6 +10,7 @@ public class TextExcel
 
 	public static void main(String[] args)
 	{
-	    // Add your command loop here
+		Spreadsheet s = new Spreadsheet();
+	    System.out.println(s.getGridText());
 	}
 }
