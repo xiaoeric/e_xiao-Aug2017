@@ -34,9 +34,17 @@ public class Spreadsheet implements Grid
 			}
 			return getGridText();
 		} else {
-			if(command.indexOf("=") >= 0) { //assignment of string values
+			if(command.indexOf("=") >= 0) { //assignment
 				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[0]);
-				cells[loc.getRow()][loc.getCol()] = new TextCell(command.substring(command.indexOf("=") + 2));
+				if(arguments[2].indexOf("\"") >= 0) { //string literals
+					cells[loc.getRow()][loc.getCol()] = new TextCell(command.substring(command.indexOf("=") + 2));
+				} else if(arguments[2].indexOf("%") >= 0) { //percent values
+					cells[loc.getRow()][loc.getCol()] = new PercentCell(arguments[2]);
+				} else if(arguments[2].indexOf("(") >= 0) { //formula values
+					cells[loc.getRow()][loc.getCol()] = new FormulaCell(command.substring(command.indexOf("=") + 2));
+				} else { //double values
+					cells[loc.getRow()][loc.getCol()] = new ValueCell(arguments[2]);
+				}
 				return getGridText();
 			} else { //cell inspection
 				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[0]);
