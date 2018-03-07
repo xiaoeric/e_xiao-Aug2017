@@ -7,10 +7,15 @@ import java.util.Scanner;
 
 public class TextExcel
 {
-
 	public static void main(String[] args)
 	{
-		Spreadsheet s = new Spreadsheet();
-	    System.out.println(s.getGridText());
+		Scanner scanner = new Scanner(System.in);
+		Spreadsheet spreadsheet = new Spreadsheet();
+		String input;
+		
+		do {
+			input = scanner.nextLine();
+			System.out.println(spreadsheet.processCommand(input));
+		} while(!input.equals("quit"));
 	}
 }

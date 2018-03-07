@@ -4,6 +4,16 @@ package textExcel;
 
 public class Spreadsheet implements Grid
 {
+	Cell[][] cells;
+	
+	public Spreadsheet() {
+		cells = new Cell[20][12];
+		for(int i = 0; i < 20; i++) {
+			for(int j = 0; j < 12; j++) {
+				cells[i][j] = new EmptyCell();
+			}
+		}
+	}
 
 	@Override
 	public String processCommand(String command)
