@@ -29,8 +29,7 @@ public class Spreadsheet implements Grid
 					for(int j = 0; j < getCols(); j++) {
 						cells[i][j] = new EmptyCell();
 					}
-				}
-				
+				}			
 			}
 			return getGridText();
 		} else {
@@ -46,10 +45,12 @@ public class Spreadsheet implements Grid
 					cells[loc.getRow()][loc.getCol()] = new ValueCell(arguments[2]);
 				}
 				return getGridText();
-			} else { //cell inspection
+			} else if(SpreadsheetLocation.isValidLocation(command)) { //cell inspection
 				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[0]);
 				Cell c = getCell(loc);
 				return c.fullCellText();
+			} else {
+				return "";
 			}
 		}
 	}
