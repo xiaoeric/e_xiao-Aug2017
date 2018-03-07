@@ -18,29 +18,50 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command)
 	{
-		// TODO Auto-generated method stub
-		return "";
+		String[] arguments = command.split(" ");
+		
+		if(command.toLowerCase().startsWith("clear")) { //clearing
+			if(arguments.length > 1) { //clearing a particular cell
+				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[1]);
+				cells[loc.getRow()][loc.getCol()] = new EmptyCell();
+			} else { //clearing the entire sheet
+				for(int i = 0; i < getRows(); i++) {
+					for(int j = 0; j < getCols(); j++) {
+						cells[i][j] = new EmptyCell();
+					}
+				}
+				
+			}
+			return getGridText();
+		} else {
+			if(command.indexOf("=") >= 0) { //assignment of string values
+				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[0]);
+				cells[loc.getRow()][loc.getCol()] = new TextCell(command.substring(command.indexOf("=") + 2));
+				return getGridText();
+			} else { //cell inspection
+				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[0]);
+				Cell c = getCell(loc);
+				return c.fullCellText();
+			}
+		}
 	}
 
 	@Override
 	public int getRows()
 	{
-		// TODO Auto-generated method stub
 		return 20;
 	}
 
 	@Override
 	public int getCols()
 	{
-		// TODO Auto-generated method stub
 		return 12;
 	}
 
 	@Override
 	public Cell getCell(Location loc)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return cells[loc.getRow()][loc.getCol()];
 	}
 
 	@Override
@@ -58,7 +79,7 @@ public class Spreadsheet implements Grid
 					if(j == 'A') {
 						spreadsheet += String.format("%-3d|", i);
 					}
-					spreadsheet += "          |";
+					spreadsheet += cells[i - 1][j - 'A'].abbreviatedCellText() + "|";
 				}
 			}
 			spreadsheet += "\n";
