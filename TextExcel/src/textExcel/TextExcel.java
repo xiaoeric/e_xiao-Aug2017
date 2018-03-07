@@ -13,9 +13,10 @@ public class TextExcel
 		Spreadsheet spreadsheet = new Spreadsheet();
 		String input;
 		
-		do {
+		while(true){
 			input = scanner.nextLine();
+			if(input.equals("quit")) break;
 			System.out.println(spreadsheet.processCommand(input));
-		} while(!input.equals("quit"));
+		}
 	}
 }
