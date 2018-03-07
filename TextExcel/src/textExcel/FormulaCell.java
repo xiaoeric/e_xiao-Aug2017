@@ -21,7 +21,7 @@ public class FormulaCell extends RealCell {
 		return Double.parseDouble(evaluate(formula));
 	}
 	
-	public String evaluate(String formula) {
+	private String evaluate(String formula) {
 		String[] arguments = formula.split(" ");
 		
 		if(arguments.length < 3) {
@@ -55,5 +55,12 @@ public class FormulaCell extends RealCell {
 			return result;
 		}
 	}
-
+	
+	private double getValue(String operand) {
+		if(SpreadsheetLocation.isValidLocation(operand)) {
+			
+		} else {
+			
+		}
+	}
 }
