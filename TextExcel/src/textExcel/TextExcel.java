@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class TextExcel
 {
+	static Spreadsheet spreadsheet = new Spreadsheet();
 	public static void main(String[] args)
 	{
 		Scanner scanner = new Scanner(System.in);
-		Spreadsheet spreadsheet = new Spreadsheet();
 		String input;
 		
 		while(true){

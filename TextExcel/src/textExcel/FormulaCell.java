@@ -28,8 +28,8 @@ public class FormulaCell extends RealCell {
 			return arguments[0];
 		}
 		
-		double firstOperand = Double.parseDouble(arguments[0]);
-		double secondOperand = Double.parseDouble(arguments[2]);
+		double firstOperand = getValue(arguments[0]);
+		double secondOperand = getValue(arguments[2]);
 		String operator = arguments[1];
 		
 		String result;
@@ -57,10 +57,15 @@ public class FormulaCell extends RealCell {
 	}
 	
 	private double getValue(String operand) {
-		if(SpreadsheetLocation.isValidLocation(operand)) {
-			
+		if(SpreadsheetLocation.isValidLocation(operand)) { //TODO: check if actually a location; "-1" passes
+			Cell c = TextExcel.spreadsheet.getCell(new SpreadsheetLocation(operand));
+			if(c instanceof RealCell) {
+				return ((RealCell) c).getDoubleValue();
+			} else {
+				return 1;
+			}
 		} else {
-			
+			return Double.parseDouble(operand);
 		}
 	}
 }
