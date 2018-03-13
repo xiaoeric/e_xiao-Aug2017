@@ -26,13 +26,18 @@ public class SpreadsheetLocation implements Location
     }
     
     public static boolean isValidLocation(String test) {
-    	int temp;
+    	int tempCol;
+    	int tempRow;
     	try {
-    		temp = Integer.parseInt(test.substring(1)) - 1;
-    		temp = Character.toUpperCase(test.charAt(0)) - 'A';
+    		tempRow = Integer.parseInt(test.substring(1)) - 1;
+    		tempCol = Character.toUpperCase(test.charAt(0)) - 'A';
     	} catch (Exception e) {
     		return false;
     	}
-    	return true;
+    	if(tempCol >= 0 && tempCol <= 11 && tempRow >= 0 && tempRow <= 19) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 }
