@@ -2,8 +2,11 @@ package textExcel;
 
 public class FormulaCell extends RealCell {
 
-	public FormulaCell(String formula) {
+	Spreadsheet source;
+	
+	public FormulaCell(String formula, Spreadsheet s) {
 		super(formula);
+		source = s;
 	}
 	
 	@Override
@@ -17,20 +20,20 @@ public class FormulaCell extends RealCell {
 
 	@Override
 	public double getDoubleValue() {
-		String formula = userInput.substring(2, userInput.length() - 2);
+		String formula = userInput.substring(2, userInput.length() - 2).toUpperCase();
 
 		double result;
 		
 		if(formula.startsWith("SUM")) {
 			String loc1 = formula.substring(4,formula.indexOf('-'));
-			String loc2 = formula.substring(formula.indexOf('-'), formula.length());
+			String loc2 = formula.substring(formula.indexOf('-') + 1, formula.length());
 			
 			double sum = Double.parseDouble(sum(loc1, loc2));
 			
 			result = sum;
 		} else if(formula.startsWith("AVG")) {
 			String loc1 = formula.substring(4,formula.indexOf('-'));
-			String loc2 = formula.substring(formula.indexOf('-'), formula.length());
+			String loc2 = formula.substring(formula.indexOf('-') + 1, formula.length());
 			
 			double sum = Double.parseDouble(sum(loc1, loc2));
 			double count = Double.parseDouble(count(loc1, loc2));
@@ -46,15 +49,15 @@ public class FormulaCell extends RealCell {
 	private String sum(String str1, String str2) {
 		SpreadsheetLocation loc1 = new SpreadsheetLocation(str1);
 		SpreadsheetLocation loc2 = new SpreadsheetLocation(str2);
-		int sum = 0;
+		double sum = 0;
 		
 		for(int i = loc1.getRow(); i <= loc2.getRow(); i++) {
 			for(int j = loc1.getCol(); j <= loc2.getCol(); j++) {
-				sum += ((RealCell)TextExcel.spreadsheet.getCell(new SpreadsheetLocation(Character.getName(j + 'A') + i))).getDoubleValue();
+				sum += ((RealCell) source.getCell(new SpreadsheetLocation(Character.toString((char)(j + 'A')) + (i + 1)))).getDoubleValue();
 			}
 		}
 		
-		return Integer.toString(sum);
+		return Double.toString(sum);
 	}
 	
 	private String count(String str1, String str2) {
@@ -107,13 +110,14 @@ public class FormulaCell extends RealCell {
 	}
 	
 	private double getValue(String operand) {
-		if(SpreadsheetLocation.isValidLocation(operand)) { //TODO: check if actually a location; "-1" passes
-			Cell c = TextExcel.spreadsheet.getCell(new SpreadsheetLocation(operand));
-			if(c instanceof RealCell) {
+		if(SpreadsheetLocation.isValidLocation(operand)) {
+			Cell c = source.getCell((new SpreadsheetLocation(operand)));
+			//TODO: returns empty cell in test; works properly manually
+			//if(c instanceof RealCell) {
 				return ((RealCell) c).getDoubleValue();
-			} else {
-				return 1;
-			}
+			//} else {
+			//	return 1;
+			//}
 		} else {
 			return Double.parseDouble(operand);
 		}

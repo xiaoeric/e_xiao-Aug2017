@@ -4,8 +4,8 @@ package textExcel;
 
 public class Spreadsheet implements Grid
 {
-	Cell[][] cells;
-	
+	private Cell[][] cells;
+
 	public Spreadsheet() {
 		cells = new Cell[20][12];
 		for(int i = 0; i < 20; i++) {
@@ -40,7 +40,7 @@ public class Spreadsheet implements Grid
 				} else if(arguments[2].indexOf("%") >= 0) { //percent values
 					cells[loc.getRow()][loc.getCol()] = new PercentCell(arguments[2]);
 				} else if(arguments[2].indexOf("(") >= 0) { //formula values
-					cells[loc.getRow()][loc.getCol()] = new FormulaCell(command.substring(command.indexOf("=") + 2));
+					cells[loc.getRow()][loc.getCol()] = new FormulaCell(command.substring(command.indexOf("=") + 2), this);
 				} else { //double values
 					cells[loc.getRow()][loc.getCol()] = new ValueCell(arguments[2]);
 				}

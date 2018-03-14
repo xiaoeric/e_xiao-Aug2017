@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class TextExcel
 {
-	static Spreadsheet spreadsheet = new Spreadsheet();
 	public static void main(String[] args)
 	{
+		Spreadsheet spreadsheet = new Spreadsheet();
 		Scanner scanner = new Scanner(System.in);
 		String input;
 		
