@@ -32,6 +32,15 @@ public class Spreadsheet implements Grid
 				}			
 			}
 			return getGridText();
+		} else if(command.toLowerCase().startsWith("sort")) { //sorting
+			String range = arguments[1];
+			
+			String loc1 = range.substring(5,range.indexOf('-'));
+			String loc2 = range.substring(range.indexOf('-') + 1, range.length());
+			
+			
+			
+			return getGridText();
 		} else {
 			if(command.indexOf("=") >= 0) { //assignment
 				SpreadsheetLocation loc = new SpreadsheetLocation(arguments[0]);
@@ -95,6 +104,15 @@ public class Spreadsheet implements Grid
 		}
 		
 		return spreadsheet;
+	}
+	
+	private void sortReal() {
+		//TODO implement
+	}
+	
+	private void sortText(String str1, String str2) {
+		SpreadsheetLocation loc1 = new SpreadsheetLocation(str1);
+		SpreadsheetLocation loc2 = new SpreadsheetLocation(str2);
 	}
 
 }
