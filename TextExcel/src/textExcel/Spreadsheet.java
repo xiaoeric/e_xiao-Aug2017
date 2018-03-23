@@ -113,6 +113,8 @@ public class Spreadsheet implements Grid
 	private void sortText(String str1, String str2) {
 		SpreadsheetLocation loc1 = new SpreadsheetLocation(str1);
 		SpreadsheetLocation loc2 = new SpreadsheetLocation(str2);
+	
+	
 	}
 
 }
