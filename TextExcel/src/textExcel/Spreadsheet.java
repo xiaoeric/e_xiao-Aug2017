@@ -35,10 +35,19 @@ public class Spreadsheet implements Grid
 		} else if(command.toLowerCase().startsWith("sort")) { //sorting
 			String range = arguments[1];
 			
-			String loc1 = range.substring(5,range.indexOf('-'));
-			String loc2 = range.substring(range.indexOf('-') + 1, range.length());
+			String str1 = range.substring(0, range.indexOf('-'));
+			String str2 = range.substring(range.indexOf('-') + 1, range.length());
 			
+			SpreadsheetLocation loc1 = new SpreadsheetLocation(str1);
+			SpreadsheetLocation loc2 = new SpreadsheetLocation(str2);
 			
+			boolean isAscend = command.toLowerCase().charAt(4) == 'a';
+			
+			if(getCell(loc1) instanceof TextCell) {
+				sortText(loc1, loc2, isAscend);
+			} else if(getCell(loc1) instanceof RealCell) {
+				sortReal(loc1, loc2, isAscend);
+			}
 			
 			return getGridText();
 		} else {
@@ -106,15 +115,51 @@ public class Spreadsheet implements Grid
 		return spreadsheet;
 	}
 	
-	private void sortReal() {
+	private void sortReal(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
 		//TODO implement
 	}
 	
-	private void sortText(String str1, String str2) {
-		SpreadsheetLocation loc1 = new SpreadsheetLocation(str1);
-		SpreadsheetLocation loc2 = new SpreadsheetLocation(str2);
+	private void sortText(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
+		int rowEnd = loc2.getRow();
+		int colEnd = loc2.getCol();
+		
+		boolean hasSwapped;
+		
+		do {
+			hasSwapped = false;
+			for(int rowStart = loc1.getRow(); rowStart <= rowEnd; rowStart++) {
+				for(int colStart = loc1.getCol(); colStart <= colEnd; colStart++) {
+					boolean lastInRow = colStart == colEnd;
+					
+					SpreadsheetLocation location1 = new SpreadsheetLocation(rowStart, colStart);
+					SpreadsheetLocation location2 = new SpreadsheetLocation(!lastInRow ? rowStart : (rowStart + 1), !lastInRow ? (colStart + 1) : loc1.getCol());
 	
+					TextCell cell1 = (TextCell) getCell(location1);
+					TextCell cell2 = (TextCell) getCell(location2);
 	
+					char cell1Char;
+					char cell2Char;
+					int i = -1;
+	
+					do {
+						i++;
+						cell1Char = cell1.fullCellText().toLowerCase().charAt(i);
+						cell2Char = cell2.fullCellText().toLowerCase().charAt(i);
+					} while(cell1Char == cell2Char);
+	
+					if((cell1Char > cell2Char && isAscend) || (cell1Char < cell2Char && !isAscend)) {
+						//not alphabetized
+						swapCells(location1, location2);
+						hasSwapped = true;
+					}
+				}
+			}
+		} while(hasSwapped);
 	}
 
+	private void swapCells(SpreadsheetLocation loc1, SpreadsheetLocation loc2) {
+		Cell temp = getCell(loc1);
+		cells[loc1.getRow()][loc1.getCol()] = getCell(loc2);
+		cells[loc2.getRow()][loc2.getCol()] = temp;
+	}
 }

@@ -25,6 +25,11 @@ public class SpreadsheetLocation implements Location
     	col = Character.toUpperCase(cellName.charAt(0)) - 'A';
     }
     
+    public SpreadsheetLocation(int row, int col)
+    {
+    	this.row = row;
+    	this.col = col;
+    }
     public static boolean isValidLocation(String test) {
     	int tempCol;
     	int tempRow;
