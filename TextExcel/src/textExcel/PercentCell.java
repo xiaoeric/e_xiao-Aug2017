@@ -11,7 +11,9 @@ public class PercentCell extends RealCell {
 	
 	@Override
 	public String abbreviatedCellText() {
-		String text = userInput.substring(0, userInput.indexOf(".")) + "%";
+		boolean isDecimal = userInput.indexOf(".") >= 0;
+		
+		String text = userInput.substring(0, isDecimal ? userInput.indexOf(".") : userInput.indexOf("%")) + "%";
 		while(text.length() < 10) {
 			text += " ";
 		}

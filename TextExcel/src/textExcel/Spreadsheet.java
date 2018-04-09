@@ -116,7 +116,38 @@ public class Spreadsheet implements Grid
 	}
 	
 	private void sortReal(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
-		//TODO implement
+		int rowEnd = loc2.getRow();
+		int colEnd = loc2.getCol();
+		
+		boolean hasSwapped;
+		
+		do {
+			hasSwapped = false;
+			for(int rowStart = loc1.getRow(); rowStart <= rowEnd; rowStart++) {
+				for(int colStart = loc1.getCol(); colStart <= colEnd; colStart++) {
+					boolean lastInRow = colStart == colEnd;
+					
+					if(lastInRow && rowStart == rowEnd) {
+						break;
+					}
+					
+					SpreadsheetLocation location1 = new SpreadsheetLocation(rowStart, colStart);
+					SpreadsheetLocation location2 = new SpreadsheetLocation(!lastInRow ? rowStart : (rowStart + 1), !lastInRow ? (colStart + 1) : loc1.getCol());
+	
+					RealCell cell1 = (RealCell) getCell(location1);
+					RealCell cell2 = (RealCell) getCell(location2);
+	
+					double cell1Val = cell1.getDoubleValue();
+					double cell2Val = cell2.getDoubleValue();
+	
+					if((cell1Val > cell2Val && isAscend) || (cell1Val < cell2Val && !isAscend)) {
+						//not alphabetized
+						swapCells(location1, location2);
+						hasSwapped = true;
+					}
+				}
+			}
+		} while(hasSwapped);
 	}
 	
 	private void sortText(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
@@ -130,6 +161,10 @@ public class Spreadsheet implements Grid
 			for(int rowStart = loc1.getRow(); rowStart <= rowEnd; rowStart++) {
 				for(int colStart = loc1.getCol(); colStart <= colEnd; colStart++) {
 					boolean lastInRow = colStart == colEnd;
+					
+					if(lastInRow && rowStart == rowEnd) {
+						break;
+					}
 					
 					SpreadsheetLocation location1 = new SpreadsheetLocation(rowStart, colStart);
 					SpreadsheetLocation location2 = new SpreadsheetLocation(!lastInRow ? rowStart : (rowStart + 1), !lastInRow ? (colStart + 1) : loc1.getCol());

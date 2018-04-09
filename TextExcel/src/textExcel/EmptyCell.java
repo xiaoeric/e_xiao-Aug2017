@@ -16,4 +16,13 @@ public class EmptyCell implements Cell {
 		return "";
 	}
 
+	@Override
+	public int compareTo(Object o) {
+		if(o instanceof EmptyCell) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 }
