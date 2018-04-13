@@ -50,9 +50,9 @@ public class TextCell implements Cell{
 				return 0;
 			}
 		} else if(o instanceof RealCell) {
-			return 1;
-		} else {
 			return -1;
+		} else {
+			return 1;
 		}
 	}
 

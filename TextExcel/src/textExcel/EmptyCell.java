@@ -21,7 +21,7 @@ public class EmptyCell implements Cell {
 		if(o instanceof EmptyCell) {
 			return 0;
 		} else {
-			return 1;
+			return -1;
 		}
 	}
 

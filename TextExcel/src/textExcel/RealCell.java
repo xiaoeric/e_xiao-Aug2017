@@ -27,7 +27,7 @@ public abstract class RealCell implements Cell{
 				return 0;
 			}
 		} else {
-			return -1;
+			return 1;
 		}
 	}
 }

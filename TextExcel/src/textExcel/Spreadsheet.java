@@ -43,11 +43,7 @@ public class Spreadsheet implements Grid
 			
 			boolean isAscend = command.toLowerCase().charAt(4) == 'a';
 			
-			if(getCell(loc1) instanceof TextCell) {
-				sortText(loc1, loc2, isAscend);
-			} else if(getCell(loc1) instanceof RealCell) {
-				sortReal(loc1, loc2, isAscend);
-			}
+			sort(loc1, loc2, isAscend);
 			
 			return getGridText();
 		} else {
@@ -115,7 +111,7 @@ public class Spreadsheet implements Grid
 		return spreadsheet;
 	}
 	
-	private void sortReal(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
+	private void sort(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
 		int rowEnd = loc2.getRow();
 		int colEnd = loc2.getCol();
 		
@@ -134,55 +130,10 @@ public class Spreadsheet implements Grid
 					SpreadsheetLocation location1 = new SpreadsheetLocation(rowStart, colStart);
 					SpreadsheetLocation location2 = new SpreadsheetLocation(!lastInRow ? rowStart : (rowStart + 1), !lastInRow ? (colStart + 1) : loc1.getCol());
 	
-					RealCell cell1 = (RealCell) getCell(location1);
-					RealCell cell2 = (RealCell) getCell(location2);
-	
-					double cell1Val = cell1.getDoubleValue();
-					double cell2Val = cell2.getDoubleValue();
-	
-					if((cell1Val > cell2Val && isAscend) || (cell1Val < cell2Val && !isAscend)) {
-						//not alphabetized
-						swapCells(location1, location2);
-						hasSwapped = true;
-					}
-				}
-			}
-		} while(hasSwapped);
-	}
-	
-	private void sortText(SpreadsheetLocation loc1, SpreadsheetLocation loc2, boolean isAscend) {
-		int rowEnd = loc2.getRow();
-		int colEnd = loc2.getCol();
-		
-		boolean hasSwapped;
-		
-		do {
-			hasSwapped = false;
-			for(int rowStart = loc1.getRow(); rowStart <= rowEnd; rowStart++) {
-				for(int colStart = loc1.getCol(); colStart <= colEnd; colStart++) {
-					boolean lastInRow = colStart == colEnd;
-					
-					if(lastInRow && rowStart == rowEnd) {
-						break;
-					}
-					
-					SpreadsheetLocation location1 = new SpreadsheetLocation(rowStart, colStart);
-					SpreadsheetLocation location2 = new SpreadsheetLocation(!lastInRow ? rowStart : (rowStart + 1), !lastInRow ? (colStart + 1) : loc1.getCol());
-	
-					TextCell cell1 = (TextCell) getCell(location1);
-					TextCell cell2 = (TextCell) getCell(location2);
-	
-					char cell1Char;
-					char cell2Char;
-					int i = -1;
-	
-					do {
-						i++;
-						cell1Char = cell1.fullCellText().toLowerCase().charAt(i);
-						cell2Char = cell2.fullCellText().toLowerCase().charAt(i);
-					} while(cell1Char == cell2Char);
-	
-					if((cell1Char > cell2Char && isAscend) || (cell1Char < cell2Char && !isAscend)) {
+					Cell cell1 = getCell(location1);
+					Cell cell2 = getCell(location2);
+
+					if((cell1.compareTo(cell2) > 0 && isAscend) || (cell1.compareTo(cell2) < 0 && !isAscend)) {
 						//not alphabetized
 						swapCells(location1, location2);
 						hasSwapped = true;
